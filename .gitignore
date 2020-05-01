@@ -1,0 +1,5 @@
+.idea
+log
+txt
+# Project exclude paths
+/target/
