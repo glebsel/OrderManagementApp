@@ -1,23 +1,32 @@
 package OMA.web;
 
 import OMA.model.Product;
-import OMA.repository.ProductRepository;
-import org.springframework.http.MediaType;
+import OMA.repository.JpaProductRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ProductRestController {
 
-    private final ProductRepository repository;
+    private JpaProductRepository repository;
 
-    public ProductRestController(ProductRepository repository){
+    public ProductRestController(JpaProductRepository repository){
         this.repository = repository;
     }
 
-    public void add(Product product) {
-        repository.add(product);
+//    public void add(Product product) {
+//        repository.add(product);
+//    }
+
+    public List<Product> getAll() {
+        return repository.getAll();
+    }
+
+    public static List<Product> getThisOrder(List<Product> products) {
+        return products.stream()
+                .filter(product -> product.getId() > 0)
+                .collect(Collectors.toList());
     }
 }

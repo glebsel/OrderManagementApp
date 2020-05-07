@@ -5,20 +5,16 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
-public class ProductRepository {
+public class JpaProductRepository {
 
     private EntityManager em;
 
-    @Transactional
-    public boolean add(Product product){
-        return false;
-    }
-
-    @Transactional
-    public boolean delete(int id){
-        return false;
+    public List<Product> getAll() {
+        return em.createNamedQuery(Product.ALL_SORTED, Product.class)
+                .getResultList();
     }
 
 }
